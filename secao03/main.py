@@ -1,4 +1,5 @@
-from typing import List, Optional
+from model import Curso
+from typing import List, Optional, Any
 
 from fastapi.responses import JSONResponse
 from fastapi import Response
@@ -9,9 +10,19 @@ from fastapi import Header
 from fastapi import FastAPI
 from fastapi import HTTPException
 from fastapi import status
+from fastapi import Depends
+
+from time import sleep
 
 
-from model import Curso
+def fake_db():
+    try:
+        print("Abrindo conexão com o banco de dados...")
+        sleep(1)
+    finally:
+        print("Fechando conexão com o banco de dados...")
+        sleep(1)
+
 
 app = FastAPI()
 
@@ -35,12 +46,12 @@ cursos = {
 
 
 @app.get("/cursos")
-async def get_cursos():
+async def get_cursos(db: Any = Depends(fake_db)):
     return cursos
 
 
 @app.get('/cursos/{curso_id}')
-async def get_curso(curso_id: int = Path(default=None, title="O ID do curso", description="Deve ser entre 1 e 3", gt=0, lt=4)):
+async def get_curso(curso_id: int = Path(default=None, title="O ID do curso", description="Deve ser entre 1 e 3", gt=0, lt=4), db: Any = Depends(fake_db)):
     try:
         curso = cursos[curso_id]
         return curso
@@ -50,7 +61,7 @@ async def get_curso(curso_id: int = Path(default=None, title="O ID do curso", de
 
 
 @app.post('/cursos', status_code=status.HTTP_201_CREATED)
-async def post_curso(curso: Curso):
+async def post_curso(curso: Curso, db: Any = Depends(fake_db)):
     next_id: int = len(cursos) + 1
     cursos[next_id] = curso
     del curso.id
@@ -58,7 +69,7 @@ async def post_curso(curso: Curso):
 
 
 @app.put('/cursos/{curso_id}')
-async def put_curso(curso_id: int, curso: Curso):
+async def put_curso(curso_id: int, curso: Curso, db: Any = Depends(fake_db)):
     if curso_id in cursos:
         cursos[curso_id] = curso
         curso.id = curso_id
@@ -71,7 +82,7 @@ async def put_curso(curso_id: int, curso: Curso):
 
 
 @app.delete('/cursos/{curso_id}')
-async def delete_curso(curso_id: int):
+async def delete_curso(curso_id: int, db: Any = Depends(fake_db)):
     if curso_id in cursos:
         del cursos[curso_id]
         return Response(status_code=status.HTTP_204_NO_CONTENT)
@@ -88,11 +99,11 @@ async def delete_curso(curso_id: int):
 # ---------------------------------------------------------------------------------------------------------
 # Query parameters: 18 Prática Query Parameters_720p                                                      *
 # ---------------------------------------------------------------------------------------------------------
-async def calcular(a: int = Query(default=None, gt=5), b: int = Query(default=None, gt=10), x_geek:str = Header(default=None), c: Optional[int] = None):
+async def calcular(a: int = Query(default=None, gt=5), b: int = Query(default=None, gt=10), x_geek: str = Header(default=None), c: Optional[int] = None):
     soma: int = a + b
     if c:
         soma = soma + c
-        
+
     print('X-GEEK:', x_geek)
 
     return {"resultado": soma}
