@@ -1,5 +1,6 @@
 from model import Curso
-from typing import List, Optional, Any
+from model import cursos
+from typing import List, Optional, Any, Dict
 
 from fastapi.responses import JSONResponse
 from fastapi import Response
@@ -24,28 +25,12 @@ def fake_db():
         sleep(1)
 
 
-app = FastAPI()
-
-cursos = {
-    1: {
-        "titulo": "Programação em Python",
-        "aulas": 112,
-        "horas": 58
-    },
-    2: {
-        "titulo": "Algortimos e Lógica de Programação",
-        "aulas": 87,
-        "horas": 67
-    },
-    3: {
-        "titulo": "Flutter e Dart",
-        "aulas": 50,
-        "horas": 100
-    },
-}
+app = FastAPI(title='API de Cursos', version='1.2',
+              description='Uma API de estudo do FastAPI',)
 
 
-@app.get("/cursos")
+@app.get("/cursos", description="Retorna todos os cursos ou uma lista vazia", summary="Retorna todos os cursos",
+         response_model=List[Curso], response_description="Cursos retornados com sucesso")
 async def get_cursos(db: Any = Depends(fake_db)):
     return cursos
 
@@ -60,7 +45,7 @@ async def get_curso(curso_id: int = Path(default=None, title="O ID do curso", de
             status_code=status.HTTP_404_NOT_FOUND, detail="Curso não encontrado!")
 
 
-@app.post('/cursos', status_code=status.HTTP_201_CREATED)
+@app.post('/cursos', status_code=status.HTTP_201_CREATED, response_model=Curso)
 async def post_curso(curso: Curso, db: Any = Depends(fake_db)):
     next_id: int = len(cursos) + 1
     cursos[next_id] = curso

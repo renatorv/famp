@@ -15,4 +15,4 @@ pip install gunicorn
 pip freeze > requirements.txt
 gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker [ não funciona no Windows ]
 
--- Aula 18 => finalizada
+-- Aula 22 => Parei em 4 minutos
