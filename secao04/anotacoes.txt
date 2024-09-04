@@ -1,0 +1,12 @@
+mkvirtualenv famp-secao04 -p python3.10
+
+pip install fastapi==0.75.2 psycopg2-binary==2.9.3 sqlalchemy==1.4.36 asyncpg==0.25.0 uvicorn==0.17.6
+
+pip freeze > requirements.txt
+
+workon <nome_env>
+
+CRIAÇÃO TABELAS DO BD: 
+- estar com a env ativa
+- estar no diretorio do arquivo criar_tabelas.py
+    python criar_tabelas.py
