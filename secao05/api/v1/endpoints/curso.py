@@ -48,13 +48,14 @@ async def get_curso(curso_id: int, db: AsyncSession = Depends(get_session)):
     async with db() as session:
         query = select(CursoModel).filter(CursoModel.id == curso_id)
         result = await session.execute(query)
-        curso = result.scalars().first()  # ??
+        # curso:CursoModel = result.scalars().first()  # ??
+        curso: CursoModel = result.scalar_one_or_none()
 
-    if not curso:
+    if curso:
+        return curso
+    else:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Curso não encontrado")
-
-    return curso
 
 
 # PUT CURSO
@@ -63,7 +64,8 @@ async def put_curso(curso_id: int, curso: CursoModel, db: AsyncSession = Depends
     async with db() as session:
         query = select(CursoModel).filter(CursoModel.id == curso_id)
         result = await session.execute(query)
-        curso_up = result.scalars().first()
+        # curso_up: CursoModel = result.scalars().first() ??
+        curso_up: CursoModel = result.scalar_one_or_none()
 
         if curso_up:
             curso_up.titulo = curso.titulo
