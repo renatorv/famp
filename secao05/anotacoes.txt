@@ -29,4 +29,4 @@ python main.py
 
 
 
-Parei na aula 28
+Próxima => 42
