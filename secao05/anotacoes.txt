@@ -8,9 +8,11 @@ workon famp-secao05
 
 lsvirtualenv
 
+python main.py
 
 
 
+PROXIMA 44
 
 
 CRIAÇÃO TABELAS DO BD: 
@@ -20,13 +22,3 @@ CRIAÇÃO TABELAS DO BD:
 
 RODAR O PROJETO
 python main.py
-
-
-
-
-
-
-
-
-
-Próxima => 43

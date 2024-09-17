@@ -1,6 +1,7 @@
 from typing import List
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from fastapi import status
+from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import Response
 
@@ -20,7 +21,7 @@ router = APIRouter()
 
 
 # POST CURSO
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=CursoModel)
+@router.post('/', status_code=status.HTTP_201_CREATED, response_model=CursoModel)
 async def post_curso(curso: CursoModel, db: AsyncSession = Depends(get_session)):
     # novo_curso = CursoModel(**curso.dict()) TESTAR!!!!
     novo_curso = CursoModel(titulo=curso.titulo,
@@ -31,10 +32,10 @@ async def post_curso(curso: CursoModel, db: AsyncSession = Depends(get_session))
     return novo_curso
 
 
-# GET CURSOS
-@router.get("/", response_model=List[CursoModel])
+# GET CURSOS => 9 minutos da aula 41
+@router.get('/', response_model=List[CursoModel])
 async def get_cursos(db: AsyncSession = Depends(get_session)):
-    async with db() as session:
+    async with db as session:
         query = select(CursoModel)
         result = await session.execute(query)
 
@@ -45,7 +46,7 @@ async def get_cursos(db: AsyncSession = Depends(get_session)):
 # GET CURSO
 @router.get("/{curso_id}", response_model=CursoModel, status_code=status.HTTP_200_OK)
 async def get_curso(curso_id: int, db: AsyncSession = Depends(get_session)):
-    async with db() as session:
+    async with db as session:
         query = select(CursoModel).filter(CursoModel.id == curso_id)
         result = await session.execute(query)
         # curso:CursoModel = result.scalars().first()  # ??
@@ -61,7 +62,7 @@ async def get_curso(curso_id: int, db: AsyncSession = Depends(get_session)):
 # PUT CURSO
 @router.put("/{curso_id}", response_model=CursoModel, status_code=status.HTTP_202_ACCEPTED)
 async def put_curso(curso_id: int, curso: CursoModel, db: AsyncSession = Depends(get_session)):
-    async with db() as session:
+    async with db as session:
         query = select(CursoModel).filter(CursoModel.id == curso_id)
         result = await session.execute(query)
         # curso_up: CursoModel = result.scalars().first() ??
@@ -84,7 +85,7 @@ async def put_curso(curso_id: int, curso: CursoModel, db: AsyncSession = Depends
 # DELETE CURSO
 @router.delete("/{curso_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_curso(curso_id: int, db: AsyncSession = Depends(get_session)):
-    async with db() as session:
+    async with db as session:
         query = select(CursoModel).filter(CursoModel.id == curso_id)
         result = await session.execute(query)
         curso_del = result.scalars().first()
