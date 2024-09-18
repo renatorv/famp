@@ -12,7 +12,7 @@ python main.py
 
 
 
-PROXIMA 44
+PROXIMA 47
 
 
 CRIAÇÃO TABELAS DO BD: 
