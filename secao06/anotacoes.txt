@@ -1,0 +1,9 @@
+
+mkvirtualenv famp-secao06 -p python3.10
+
+pip install fastapi==0.75.2 psycopg2-binary==2.9.3 sqlalchemy==1.4.36 asyncpg==0.25.0 uvicorn==0.17.6 python-jose[cryptografy]==3.3.0 pytz==2022.1 passlib==1.7.4 python-multipart==0.0.5
+
+pip freeze > requirements.txt
+
+PAREI:
+AULA 48 -> 10:45
