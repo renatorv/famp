@@ -6,4 +6,4 @@ pip install fastapi==0.75.2 psycopg2-binary==2.9.3 sqlalchemy==1.4.36 asyncpg==0
 pip freeze > requirements.txt
 
 PAREI:
-AULA 48 -> 10:45
+FINALIZADA AULA 50
