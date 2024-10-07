@@ -9,4 +9,4 @@ Aula 51:
 python criar_tabelas.py
 
 PAREI:
-autla 53 => 17:23 minutos
+finalizada aula 55
