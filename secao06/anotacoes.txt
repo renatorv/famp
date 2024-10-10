@@ -8,5 +8,10 @@ pip freeze > requirements.txt
 Aula 51:
 python criar_tabelas.py
 
+https://jwt.io/
+Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNzI5MDkyNjYzLCJpYXQiOjE3Mjg0ODc4NjMsInN1YiI6IjIifQ.W4ABZ6UR8dIOhbC1hk5NGS6GdST4j0kgkPzat75rr_M
+Tipo: bearer
+Token 2: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNzI5MTYyMzQxLCJpYXQiOjE3Mjg1NTc1NDEsInN1YiI6IjEifQ.-ZlKTen7LnabrbiJdTCp5Tdq6uWU0Go91gWTVmGcXrI
+
 PAREI:
-finalizada aula 55
+Aula 56 em 37 e 32 minutos
